@@ -34,7 +34,7 @@ class Board:
                 legalCol=self.canDrop(col)
             num = random.randint(1,7)
             self.drop(col, num)
-        self.resolve()
+        self.resolve(0)
         
     def canDrop(self, col):
         return self.board[6][col-1].isEmpty()
@@ -59,8 +59,15 @@ class Board:
             self.board[0][col]=Space(empty=False, gray=True)
             
     
-    def resolve(self):
+    def resolve(self, multiplier):
         #self.printBoard()
+        #These are the point totals you get for chaining
+        if multiplier>17:
+            pointsPerBall=20000
+        else:
+            pointsPerBall = [7,39, 109, 224, 391,617, 907, 1267, 1701, 2213, 2809, 3491, 4265, 5133, 6099,
+                             7168, 8347, 9622][multiplier]
+        roundScore=0
         needsPopped = set()
         for row in range(7):
             for col in range(7):
@@ -71,10 +78,13 @@ class Board:
             for row, col in needsPopped:
                 self.board[row][col].pop()
                 self.crackNeighbors(row, col) #if a ball pops, it changes the gray ones
-                
+            roundScore+=len(needsPopped)*pointsPerBall    
             self.gravity(needsPopped) #if some were popped, let gravity do its thing
-            self.resolve() #If some were deleted recursively call the resolve function to start over
-            
+            endScore, endMultiplier = self.resolve(multiplier+1)
+            return roundScore+endScore, endMultiplier #If some were deleted recursively call the resolve function to start over
+        return roundScore, multiplier
+    
+    
     def gravity(self, poppedList):
         wherePopsOccurred= [set() for i in range(7)]
         for row, col in poppedList:
@@ -92,6 +102,12 @@ class Board:
                           self.board[row-needsToDrop][col]=self.board[row][col].copy()
                           self.board[row][col].emptyMe()
                           
+    def cleared(self):
+        for i in range(7):
+            if self.board[0][i].isNotEmpty():
+                return False
+        return True
+    
     def printBoard(self):
         printout='_____________\n'
         for row in range(6, -1,-1):
@@ -255,7 +271,10 @@ class Game:
             
     def handleDrop(self, col): #Note column here is [1, 7] not [0,6]
         self.board.drop(col, self.nextBall)
-        self.board.resolve()
+        score, mult = self.board.resolve(0)
+        self.score+=score
+        if self.board.cleared():
+            self.score+=90000
         self.gameOver=self.board.isOver()
         self.nextBall=random.randint(1,7)
         self.ballsTillNext-=1
@@ -266,7 +285,10 @@ class Game:
             if self.board.isOver():
                 self.gameOver=True
                 return
-            self.board.resolve()
+            score, _=self.board.resolve(mult)
+            if self.board.cleared():
+                self.score+=90000
+            self.score+=score
             
     def finalScore(self):
         return self.score
