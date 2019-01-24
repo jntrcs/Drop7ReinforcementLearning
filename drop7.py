@@ -290,11 +290,33 @@ class Game:
                 self.score+=90000
             self.score+=score
             
-    def finalScore(self):
-        return self.score
             
-            
+
+class MachineGame(Game):
+    def __init__(self):
+        Game.__init__(self)
+    
+    def getGameData(self): #Returns a tuple with (board array, number of balls till next row, current ball)
+        return self.board, self.ballsTillNext, self.nextBall
+    
+    def visualizeGame(self):
+        print "Current Score:", self.score
+        print "# of balls till new row:", self.ballsTillNext
+        self.board.printBoard()
+        print "Current ball:", self.nextBall
         
-a = Game()
-a.startGame()
-print "Game over! Final Score:", a.finalScore()
+    def takeTurn(self, choice):
+        if choice<0 or choice>6:
+            raise ValueError("Submitted choice was not action space")
+        if not self.board.canDrop(choice):
+            return False
+        else:
+            self.handleDrop(choice)
+            return(True)
+        
+        
+    
+        
+#a = Game()
+#a.startGame()
+#print "Game over! Final Score:", a.score
