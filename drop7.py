@@ -297,7 +297,7 @@ class MachineGame(Game):
         Game.__init__(self)
     
     def getGameData(self): #Returns a tuple with (board array, number of balls till next row, current ball)
-        return self.board, self.ballsTillNext, self.nextBall
+        return self.board, self.ballsTillNext, self.nextBall, self.score
     
     def visualizeGame(self):
         print "Current Score:", self.score
@@ -307,7 +307,7 @@ class MachineGame(Game):
         
     def takeTurn(self, choice):
         if choice<0 or choice>6:
-            raise ValueError("Submitted choice was not action space")
+            raise ValueError("Submitted choice was not in action space")
         if not self.board.canDrop(choice):
             return False
         else:
@@ -315,7 +315,6 @@ class MachineGame(Game):
             return(True)
         
         
-    
         
 #a = Game()
 #a.startGame()
