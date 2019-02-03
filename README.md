@@ -1,7 +1,10 @@
-# Drop7ReinforcementLearning
-There are three goals of this repository:
-1. Recreate a version of the Zynga game Drop7 in Python in order to simulate games (almost done)
-2. Transform the game data to make it ammenable to reinforcement learning, similar to the API for gym.openai.com (will do soon)
-3. Create reinforcement learning models to learn the game of Drop7 and maximize the average score (might do, invite you to do)
+# Drop7 Reinforcement Learning Challenge
+The goal of this challenge is to create a Deep Learning algorithm capable of playing a game similar to Zynga's Drop7. 
 
-My goal with this project is to make a Drop7 simulator suitable for Deep Learning research. While I will toy with my own learning network, I want to make this available to anyone who would like to try to teach a network to play Drop7. I only ask is that if anyone is able to build a network that can maintain an average final score of >350,000 in a sample of 100+ games, that they share the network for me. 350,000 is my long running average, and I would love to learn from a network that can score better than me.
+## The Game
+
+Drop7 is a smartphone strategy game produced by Zynga. The goal of the game is to keep the balls from getting to the top of the 7x7 grid. Balls pop if the ball is connected either vertically or horizontally to the number on the ball. New rows of gray balls appear over time that must have balls pop near them before they reveal their number. A more thorough explanation of the game can be found [here]( https://www.youtube.com/watch?v=L_RLjEruSx8) (Note: this game shows several game modes, this challenge focuses only on "blitz mode")
+
+![screenshot](Drop7Screenshot.jpg)
+
+
