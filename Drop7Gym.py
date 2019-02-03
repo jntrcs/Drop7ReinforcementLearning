@@ -28,7 +28,10 @@ class Drop7Env:
         if self.game.takeTurn(choice):
             #print("succeeded")
             #your reward is however much your score increased that round
-            return self.game.getGameData(), self.game.score-oldScore, self.game.gameOver, {}
+            messages={}
+            if self.game.gameOver:
+                messages['FinalScore'] = self.game.score
+            return self.game.getGameData(), self.game.score-oldScore, self.game.gameOver, messages
             
         else:
             #Handle the case where you attempted to place a ball in a full column
