@@ -8,7 +8,7 @@ Drop7 is a smartphone strategy game produced by Zynga. The goal of the game is t
 <img src="Drop7Screenshot.jpg" alt="screenshot" width="200" align="middle"/>
 </p>
   
-**Note:** While this repository attempts to implement the rules of Drop7, I am not the owner of the game or copyright holder. This code should be used strictly for research and not commerical purposes. In addition, no guarantees are made between the similarity of my implementation and the actual rules. For example, I do not know the rules governing game initialization, nor do I know the chain bonus multiplier for very large chains, so both of these are only approximate. 
+**Note:** While the [repository](https://github.com/jntrcs/Drop7ReinforcementLearning) attempts to implement the rules of Drop7, I am not the owner of the game or copyright holder. This code should be used strictly for research and not commercial purposes. In addition, no guarantees are made between the similarity of my implementation and the actual rules. For example, I do not know the rules governing game initialization, nor do I know the chain bonus multiplier for very long chains, so both of these are only approximate. 
 
 ## The Challenge
 Create a neural network that can play the game and achieve a long-running average of 353,000 or more. 
